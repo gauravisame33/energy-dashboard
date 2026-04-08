@@ -2,87 +2,66 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-st.set_page_config(page_title="REM Dashboard", layout="wide")
+st.set_page_config(page_title="VIT Energy Dashboard", layout="wide")
 
 # Sidebar
 
-st.sidebar.title("⚡ REM System")
-page = st.sidebar.radio("Navigate", ["Home", "Dashboard", "Applications", "Data Explorer", "Report"])
-
-# Data
-
-data = pd.DataFrame({
-"Year": [2018, 2019, 2020, 2021, 2022, 2023],
-"Solar": [20, 30, 45, 60, 80, 100],
-"Wind": [25, 35, 50, 65, 85, 110],
-"Hydro": [40, 45, 50, 55, 60, 70]
-})
-
-# ---------------- HOME ----------------
-
-if page == "Home": st.markdown("<h1 style='color:#00FFAA;'>🌱 Renewable Energy Management (REM)</h1>", unsafe_allow_html=True)
-if page == "Home": st.write("""
-Renewable Energy Management focuses on the efficient use, monitoring, and control of energy generated from sustainable sources.
-It plays a crucial role in reducing dependency on fossil fuels and minimizing environmental damage.
-
-The system integrates technologies like solar panels, wind turbines, and hydropower systems to ensure optimized energy utilization
-while maintaining reliability and cost-effectiveness.
-""")
+st.sidebar.title("⚡ VIT Energy Dashboard")
+page = st.sidebar.radio("Navigate", ["Dashboard", "Insights", "Sustainability Plan"])
 
 # ---------------- DASHBOARD ----------------
 
-if page == "Dashboard": st.title("📊 REM System Overview")
-if page == "Dashboard": st.write("""
-This dashboard presents the growth and performance of different renewable energy sources.
-It helps in understanding how energy production varies over time and how each source contributes to the overall system.
+if page == "Dashboard": st.markdown("## ⚡ VIT Campus Energy Utility & Sustainability Dashboard")
+
+# KPI Cards
+
+if page == "Dashboard": col1, col2, col3, col4 = st.columns(4)
+if page == "Dashboard": col1.metric("🔋 Total Energy (kWh/day)", "8460")
+if page == "Dashboard": col2.metric("☀️ Solar Share (%)", "31%")
+if page == "Dashboard": col3.metric("🌍 CO₂ Emissions (kg/day)", "4761")
+if page == "Dashboard": col4.metric("👥 Avg Occupancy", "54%")
+
+# Sample Data
+
+data = pd.DataFrame({
+"Area": ["M Block", "Old Building", "Library", "Hostel"],
+"Energy": [3000, 2200, 1800, 1460],
+"CO2": [1500, 1200, 1000, 1061]
+})
+
+# Charts
+
+if page == "Dashboard": st.subheader("📊 Energy Consumption by Area")
+if page == "Dashboard": st.plotly_chart(px.bar(data, x="Area", y="Energy"), use_container_width=True)
+
+if page == "Dashboard": st.subheader("☀️ Solar vs Grid Energy Split")
+if page == "Dashboard": st.plotly_chart(px.pie(values=[31, 69], names=["Solar", "Grid"]))
+
+if page == "Dashboard": st.subheader("📈 Occupancy vs Energy Demand")
+if page == "Dashboard": st.plotly_chart(px.line(data, x="Area", y="Energy", markers=True))
+
+if page == "Dashboard": st.subheader("🌱 CO₂ Emissions by Area")
+if page == "Dashboard": st.plotly_chart(px.bar(data, x="Area", y="CO2"), use_container_width=True)
+
+# ---------------- INSIGHTS ----------------
+
+if page == "Insights": st.title("🧠 Key Insights & Observations")
+
+if page == "Insights": st.markdown("""
+• Academic blocks such as M Block show higher energy usage due to labs and events
+• Lower floors maintain consistent energy demand throughout operational hours
+• Solar energy integration helps reduce dependence on conventional grid supply
+• Older infrastructure has potential for energy optimization through retrofitting
 """)
-if page == "Dashboard": st.plotly_chart(px.line(data, x="Year", y=["Solar", "Wind", "Hydro"], markers=True), use_container_width=True)
-if page == "Dashboard": st.plotly_chart(px.pie(values=[100,110,70], names=["Solar","Wind","Hydro"]))
 
-# ---------------- APPLICATIONS ----------------
+# ---------------- SUSTAINABILITY PLAN ----------------
 
-if page == "Applications": st.title("⚙️ Applications of REM")
-if page == "Applications": st.markdown("""
+if page == "Sustainability Plan": st.title("📌 Long-Term Sustainability Plan")
 
-* **Smart Grids:** Enable real-time monitoring and efficient distribution of electricity
-* **Solar Power Systems:** Used in residential and industrial setups for clean energy generation
-* **Wind Energy Farms:** Generate large-scale electricity with minimal environmental impact
-* **Hydropower Plants:** Provide consistent and reliable energy supply
-* **Energy Storage Systems:** Store excess energy for later use, improving efficiency
-  """)
-
-# ---------------- DATA EXPLORER ----------------
-
-if page == "Data Explorer": st.title("📁 Data Analysis")
-if page == "Data Explorer": st.write("""
-Users can upload datasets to analyze energy trends and consumption patterns.
-This helps in better decision-making and understanding system performance.
+if page == "Sustainability Plan": st.markdown("""
+• Expansion of rooftop solar installations across major campus blocks
+• Deployment of smart meters for real-time energy monitoring
+• Implementation of AI-based HVAC systems for efficient cooling
+• Use of motion-sensor lighting in low-traffic areas
+• Goal: Achieve a net-zero energy campus by 2035
 """)
-if page == "Data Explorer": file = st.file_uploader("Upload CSV File")
-
-if page == "Data Explorer" and file is not None:
-  df = pd.read_csv(file)
-  st.dataframe(df)
-  col = st.selectbox("Select column", df.columns)
-  st.plotly_chart(px.histogram(df, x=col))
-
-# ---------------- REPORT ----------------
-
-if page == "Report": st.title("📄 REM Summary Report")
-if page == "Report": st.markdown("""
-
-### Overview:
-
-Renewable Energy Management systems are essential for sustainable energy development.
-
-### Key Points:
-
-* Efficient utilization of renewable resources improves energy availability
-* Integration of multiple sources increases system reliability
-* Reduction in carbon emissions supports environmental protection
-
-### Conclusion:
-
-REM systems are a key step toward achieving a clean, efficient, and sustainable energy future.
-""")
-if page == "Report": st.download_button("Download Report", "REM Report Content", file_name="REM_Report.txt")
