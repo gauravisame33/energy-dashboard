@@ -71,10 +71,10 @@ if page == "Dashboard": st.write(f"🔮 Predicted Next Day Energy Demand: {futur
 # Savings Calculator
 
 if page == "Dashboard":
-st.subheader("💰 Energy Savings Calculator")
-reduction = st.slider("Reduce Usage (%)", 0, 50, 10)
-saved = int(live_energy * (reduction/100))
-st.success(f"Estimated Savings: {saved} kWh/day")
+  st.subheader("💰 Energy Savings Calculator")
+  reduction = st.slider("Reduce Usage (%)", 0, 50, 10)
+  saved = int(live_energy * (reduction/100))
+  st.success(f"Estimated Savings: {saved} kWh/day")
 
 # Ranking
 
