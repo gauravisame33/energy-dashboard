@@ -61,10 +61,10 @@ This helps in better decision-making and understanding system performance.
 if page == "Data Explorer": file = st.file_uploader("Upload CSV File")
 
 if page == "Data Explorer" and file is not None:
-df = pd.read_csv(file)
-st.dataframe(df)
-col = st.selectbox("Select column", df.columns)
-st.plotly_chart(px.histogram(df, x=col))
+  df = pd.read_csv(file)
+  st.dataframe(df)
+  col = st.selectbox("Select column", df.columns)
+  st.plotly_chart(px.histogram(df, x=col))
 
 # ---------------- REPORT ----------------
 
