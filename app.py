@@ -4,8 +4,12 @@ import plotly.express as px
 
 st.set_page_config(page_title="Energy Dashboard", layout="wide")
 
+# Sidebar
+
 st.sidebar.title("⚡ Energy Dashboard")
 page = st.sidebar.radio("Navigate", ["Home", "Dashboard", "Analysis", "Data"])
+
+# Sample Data
 
 data = pd.DataFrame({
 "Year": [2018, 2019, 2020, 2021, 2022, 2023],
@@ -13,6 +17,8 @@ data = pd.DataFrame({
 "Wind": [25, 35, 50, 65, 85, 110],
 "Hydro": [40, 45, 50, 55, 60, 70]
 })
+
+# Pages
 
 if page == "Home":
 st.title("🌱 Renewable Energy Dashboard")
@@ -48,7 +54,7 @@ st.title("📁 Upload Data")
 ```
 file = st.file_uploader("Upload CSV")
 
-if file:
+if file is not None:
     df = pd.read_csv(file)
     st.dataframe(df)
 ```
