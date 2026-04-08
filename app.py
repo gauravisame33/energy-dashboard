@@ -110,9 +110,9 @@ if page == "Sustainability": st.title("📌 Long-Term Sustainability Strategy")
 if page == "Sustainability": st.metric("🌱 Sustainability Score", "78/100")
 
 if page == "Sustainability":
-st.subheader("🎯 Net-Zero Goal Progress")
-st.progress(68)
-st.write("68% progress towards achieving a net-zero energy campus")
+  st.subheader("🎯 Net-Zero Goal Progress")
+  st.progress(68)
+  st.write("68% progress towards achieving a net-zero energy campus")
 
 if page == "Sustainability": st.markdown("""
 
