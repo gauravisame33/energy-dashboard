@@ -2,16 +2,14 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# Page setup
-
-st.set_page_config(page_title="Renewable Energy Dashboard", layout="wide")
+st.set_page_config(page_title="REM Dashboard", layout="wide")
 
 # Sidebar
 
-st.sidebar.title("⚡ Energy Management System")
-page = st.sidebar.radio("Navigate", ["Home", "Dashboard", "Analysis", "Data Explorer", "Report"])
+st.sidebar.title("⚡ REM System")
+page = st.sidebar.radio("Navigate", ["Home", "Dashboard", "Applications", "Data Explorer", "Report"])
 
-# Sample Data
+# Data
 
 data = pd.DataFrame({
 "Year": [2018, 2019, 2020, 2021, 2022, 2023],
@@ -22,108 +20,69 @@ data = pd.DataFrame({
 
 # ---------------- HOME ----------------
 
-if page == "Home":
-st.markdown("<h1 style='color:#00FFAA;'>🌱 Renewable Energy Management System</h1>", unsafe_allow_html=True)
+if page == "Home": st.markdown("<h1 style='color:#00FFAA;'>🌱 Renewable Energy Management (REM)</h1>", unsafe_allow_html=True)
+if page == "Home": st.write("""
+Renewable Energy Management focuses on the efficient use, monitoring, and control of energy generated from sustainable sources.
+It plays a crucial role in reducing dependency on fossil fuels and minimizing environmental damage.
 
-```
-st.write("""
-This platform provides an overview of modern renewable energy systems and their role in reducing environmental impact. 
-It focuses on sustainable energy sources such as solar, wind, and hydropower.
-
-The objective is to highlight how efficient energy management strategies can support long-term sustainability 
-while meeting increasing energy demands.
+The system integrates technologies like solar panels, wind turbines, and hydropower systems to ensure optimized energy utilization
+while maintaining reliability and cost-effectiveness.
 """)
-
-col1, col2, col3 = st.columns(3)
-col1.metric("Solar Adoption", "↑ 120%")
-col2.metric("Wind Contribution", "↑ 95%")
-col3.metric("Emission Reduction", "↓ 40%")
-
-st.image("https://images.unsplash.com/photo-1509395176047-4a66953fd231")
-```
 
 # ---------------- DASHBOARD ----------------
 
-elif page == "Dashboard":
-st.title("📊 Energy Generation Overview")
-
-```
-st.write("""
-This section visualizes energy production trends across different renewable sources. 
-It helps in identifying growth patterns and comparing contributions from solar, wind, and hydro energy.
+if page == "Dashboard": st.title("📊 REM System Overview")
+if page == "Dashboard": st.write("""
+This dashboard presents the growth and performance of different renewable energy sources.
+It helps in understanding how energy production varies over time and how each source contributes to the overall system.
 """)
+if page == "Dashboard": st.plotly_chart(px.line(data, x="Year", y=["Solar", "Wind", "Hydro"], markers=True), use_container_width=True)
+if page == "Dashboard": st.plotly_chart(px.pie(values=[100,110,70], names=["Solar","Wind","Hydro"]))
 
-fig = px.line(data, x="Year", y=["Solar", "Wind", "Hydro"], markers=True)
-st.plotly_chart(fig, use_container_width=True)
+# ---------------- APPLICATIONS ----------------
 
-st.subheader("Energy Distribution")
-pie = px.pie(values=[100, 110, 70], names=["Solar", "Wind", "Hydro"])
-st.plotly_chart(pie)
-```
+if page == "Applications": st.title("⚙️ Applications of REM")
+if page == "Applications": st.markdown("""
 
-# ---------------- ANALYSIS ----------------
-
-elif page == "Analysis":
-st.title("🔍 Energy Consumption Analysis")
-
-```
-st.write("""
-This tool allows users to estimate their energy usage and understand cost implications. 
-It also demonstrates how increasing renewable energy usage can help reduce carbon footprint.
-""")
-
-usage = st.slider("Energy Usage (kWh)", 100, 1000, 500)
-cost = usage * 0.12
-
-st.write(f"💰 Estimated Energy Cost: ₹{cost}")
-
-renewable = st.slider("Renewable Energy Usage (%)", 0, 100, 50)
-reduction = renewable * 0.5
-
-st.success(f"🌿 Estimated CO₂ Reduction: {reduction}%")
-```
+* **Smart Grids:** Enable real-time monitoring and efficient distribution of electricity
+* **Solar Power Systems:** Used in residential and industrial setups for clean energy generation
+* **Wind Energy Farms:** Generate large-scale electricity with minimal environmental impact
+* **Hydropower Plants:** Provide consistent and reliable energy supply
+* **Energy Storage Systems:** Store excess energy for later use, improving efficiency
+  """)
 
 # ---------------- DATA EXPLORER ----------------
 
-elif page == "Data Explorer":
-st.title("📁 Data Exploration")
-
-```
-st.write("""
-Users can upload their own datasets to analyze energy consumption patterns. 
-This feature enables interactive visualization and better decision-making through data insights.
+if page == "Data Explorer": st.title("📁 Data Analysis")
+if page == "Data Explorer": st.write("""
+Users can upload datasets to analyze energy trends and consumption patterns.
+This helps in better decision-making and understanding system performance.
 """)
+if page == "Data Explorer": file = st.file_uploader("Upload CSV File")
 
-file = st.file_uploader("Upload CSV File")
-
-if file is not None:
-    df = pd.read_csv(file)
-    st.dataframe(df)
-
-    column = st.selectbox("Select column to visualize", df.columns)
-    fig = px.histogram(df, x=column)
-    st.plotly_chart(fig)
-```
+if page == "Data Explorer" and file is not None:
+df = pd.read_csv(file)
+st.dataframe(df)
+col = st.selectbox("Select column", df.columns)
+st.plotly_chart(px.histogram(df, x=col))
 
 # ---------------- REPORT ----------------
 
-elif page == "Report":
-st.title("📄 Energy Insights Report")
+if page == "Report": st.title("📄 REM Summary Report")
+if page == "Report": st.markdown("""
 
-```
-st.markdown("""
 ### Overview:
-Renewable energy sources are playing a vital role in fulfilling global energy requirements.
 
-### Key Observations:
-- Solar energy capacity is increasing rapidly  
-- Wind energy is becoming more efficient and widespread  
-- Hydropower continues to provide stable output  
+Renewable Energy Management systems are essential for sustainable energy development.
+
+### Key Points:
+
+* Efficient utilization of renewable resources improves energy availability
+* Integration of multiple sources increases system reliability
+* Reduction in carbon emissions supports environmental protection
 
 ### Conclusion:
-The shift towards renewable energy combined with effective management practices 
-can ensure a sustainable and environmentally friendly future.
-""")
 
-st.download_button("Download Report", "Renewable Energy Report", file_name="report.txt")
-```
+REM systems are a key step toward achieving a clean, efficient, and sustainable energy future.
+""")
+if page == "Report": st.download_button("Download Report", "REM Report Content", file_name="REM_Report.txt")
