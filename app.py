@@ -4,5 +4,4 @@ st.title("Test App Running ✅")
 
 page = "Home"
 
-if page == "Home":
-st.write("Home page working")
+if page == "Home": st.write("Home page working")
