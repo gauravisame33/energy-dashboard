@@ -79,8 +79,8 @@ if page == "Dashboard":
 # Ranking
 
 if page == "Dashboard":
-st.subheader("🏆 Energy Efficiency Ranking")
-st.dataframe(data.sort_values(by="Energy"))
+  st.subheader("🏆 Energy Efficiency Ranking")
+  st.dataframe(data.sort_values(by="Energy"))
 
 # ---------------- INSIGHTS ----------------
 
